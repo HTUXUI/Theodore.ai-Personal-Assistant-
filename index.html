@@ -117,11 +117,16 @@
     <div class="theo">
       <div class="theo-orb" id="theo-orb"></div>
       <div class="theo-body">
-        <div class="theo-line" id="theo-line">Good day. I'm Theodore, at your service.</div>
-        <div class="theo-news" id="theo-news"></div>
-        <div class="theo-btns">
-          <button class="btn" id="theo-brief"><i class="ti ti-microphone"></i> Morning briefing</button>
-          <button class="btn" id="theo-stop"><i class="ti ti-player-stop"></i> Stop</button>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="theo-line" id="theo-line" style="flex:1;">Good day. I'm Theodore, at your service.</div>
+          <button class="del" id="theo-toggle" aria-label="Collapse Theodore" style="font-size:20px;"><i class="ti ti-chevron-up"></i></button>
+        </div>
+        <div id="theo-collapsible">
+          <div class="theo-news" id="theo-news"></div>
+          <div class="theo-btns">
+            <button class="btn" id="theo-brief"><i class="ti ti-microphone"></i> Morning briefing</button>
+            <button class="btn" id="theo-stop"><i class="ti ti-player-stop"></i> Stop</button>
+          </div>
         </div>
       </div>
     </div>
@@ -162,6 +167,10 @@
         <button data-min="25" class="act">Focus 25</button>
         <button data-min="5">Break 5</button>
         <button data-min="15">Long 15</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; justify-content:center; margin-bottom:14px;">
+        <input type="number" id="t-custom" min="1" max="180" placeholder="min" style="width:72px; text-align:center;" />
+        <button class="btn" id="t-custom-set" style="padding:8px 13px;">Set custom</button>
       </div>
       <div class="tdisplay" id="t-disp">25:00</div>
       <div class="tbtns">
@@ -375,6 +384,14 @@ document.querySelectorAll('.tmode button').forEach(b=>b.onclick=function(){
   clearInterval(tInt);tRun=false;document.getElementById('t-toggle').textContent='Start';
   state.sessionMode=+this.dataset.min;tTotal=tLeft=+this.dataset.min*60;tRender();
 });
+document.getElementById('t-custom-set').onclick=function(){
+  let m=parseInt(document.getElementById('t-custom').value,10);
+  if(!m||m<1)return; if(m>180)m=180;
+  document.querySelectorAll('.tmode button').forEach(x=>x.classList.remove('act'));
+  clearInterval(tInt);tRun=false;document.getElementById('t-toggle').textContent='Start';
+  state.sessionMode=m;tTotal=tLeft=m*60;tRender();
+};
+document.getElementById('t-custom').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('t-custom-set').click();});
 function updSess(){document.getElementById('t-sessions').textContent='Sessions today: '+(state.sessions[todayKey()]||0);}
 
 const NEWS = [
@@ -405,6 +422,9 @@ function renderMusic(){
     </div>`).join('');
 }
 
+const WORKER_URL = "https://theodore-voice.htateux.workers.dev";
+const VOICE_ID = "UEKYgullGqaF0keqT8Bu";
+
 let theoVoice = null;
 function pickVoice(){
   const vs = speechSynthesis.getVoices();
@@ -425,6 +445,32 @@ function pickVoice(){
 }
 if ('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = pickVoice; pickVoice(); }
 
+let theoAudio = null;
+async function speak(text){
+  const orb = document.getElementById('theo-orb');
+  if (WORKER_URL) {
+    try {
+      orb.classList.add('speaking');
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, voice_id: VOICE_ID || undefined })
+      });
+      if (!res.ok) throw new Error('worker ' + res.status);
+      const blob = await res.blob();
+      if (theoAudio) { theoAudio.pause(); }
+      theoAudio = new Audio(URL.createObjectURL(blob));
+      theoAudio.onended = () => orb.classList.remove('speaking');
+      await theoAudio.play();
+      return;
+    } catch (e) {
+      orb.classList.remove('speaking');
+    }
+  }
+  const parts = text.match(/[^.!?]+[.!?]+|\S+$/g) || [text];
+  speakChunks(parts);
+}
+
 function speakChunks(sentences){
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
@@ -442,11 +488,6 @@ function speakChunks(sentences){
     speechSynthesis.speak(u);
   };
   next();
-}
-
-function speak(text){
-  const parts = text.match(/[^.!?]+[.!?]+|\S+$/g) || [text];
-  speakChunks(parts);
 }
 
 function addr(){ return state.name ? state.name : 'sir'; }
@@ -468,7 +509,14 @@ function buildBriefing(){
 }
 
 document.getElementById('theo-brief').onclick = () => { speak(buildBriefing()); };
-document.getElementById('theo-stop').onclick = () => { speechSynthesis.cancel(); setTimeout(()=>document.getElementById('theo-orb').classList.remove('speaking'), 50); };
+document.getElementById('theo-stop').onclick = () => { if (theoAudio) theoAudio.pause(); speechSynthesis.cancel(); setTimeout(()=>document.getElementById('theo-orb').classList.remove('speaking'), 50); };
+document.getElementById('theo-toggle').onclick = function(){
+  const c = document.getElementById('theo-collapsible');
+  const open = c.style.display !== 'none';
+  c.style.display = open ? 'none' : '';
+  this.innerHTML = open ? '<i class="ti ti-chevron-down"></i>' : '<i class="ti ti-chevron-up"></i>';
+  state.theoCollapsed = open; save();
+};
 
 
 (async function(){
@@ -478,6 +526,10 @@ document.getElementById('theo-stop').onclick = () => { speechSynthesis.cancel();
   renderAll();
   renderMusic();
   updSess();
+  if (state.theoCollapsed) {
+    document.getElementById('theo-collapsible').style.display = 'none';
+    document.getElementById('theo-toggle').innerHTML = '<i class="ti ti-chevron-down"></i>';
+  }
   tRender();
 
   if (!state.name) {
