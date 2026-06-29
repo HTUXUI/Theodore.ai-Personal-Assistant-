@@ -197,15 +197,15 @@ let state = { tasks: [], habits: [], sessions: {}, sessionMode: 25 };
 
 async function load() {
   try {
-    const r = await window.storage.get('dashboard');
-    if (r && r.value) state = JSON.parse(r.value);
+    const raw = localStorage.getItem('dashboard');
+    if (raw) state = JSON.parse(raw);
   } catch (e) {}
   if (!state.tasks) state.tasks = [];
   if (!state.habits) state.habits = [];
   if (!state.sessions) state.sessions = {};
 }
-async function save() {
-  try { await window.storage.set('dashboard', JSON.stringify(state)); } catch (e) {}
+function save() {
+  try { localStorage.setItem('dashboard', JSON.stringify(state)); } catch (e) {}
 }
 
 function lerp(a,b,t){return a+(b-a)*t;}
