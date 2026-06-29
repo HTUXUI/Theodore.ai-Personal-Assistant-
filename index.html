@@ -194,18 +194,30 @@ const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const todayKey = () => new Date().toISOString().slice(0,10);
 
 let state = { tasks: [], habits: [], sessions: {}, sessionMode: 25 };
+let storeOK = true;
 
 async function load() {
-  try {
-    const raw = localStorage.getItem('dashboard');
-    if (raw) state = JSON.parse(raw);
-  } catch (e) {}
+  let raw = null;
+  try { raw = localStorage.getItem('dashboard'); } catch (e) { storeOK = false; }
+  if (raw == null) {
+    try { raw = document.cookie.split('; ').find(c=>c.startsWith('dashboard='))?.split('=').slice(1).join('='); if (raw) raw = decodeURIComponent(raw); } catch (e) {}
+  }
+  if (raw) { try { state = JSON.parse(raw); } catch (e) {} }
   if (!state.tasks) state.tasks = [];
   if (!state.habits) state.habits = [];
   if (!state.sessions) state.sessions = {};
 }
+
 function save() {
-  try { localStorage.setItem('dashboard', JSON.stringify(state)); } catch (e) {}
+  const data = JSON.stringify(state);
+  let wrote = false;
+  try { localStorage.setItem('dashboard', data); wrote = true; } catch (e) { storeOK = false; }
+  try {
+    const d = new Date(); d.setFullYear(d.getFullYear() + 1);
+    document.cookie = 'dashboard=' + encodeURIComponent(data) + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+    wrote = true;
+  } catch (e) {}
+  return wrote;
 }
 
 function lerp(a,b,t){return a+(b-a)*t;}
@@ -558,6 +570,9 @@ document.getElementById('theo-toggle').onclick = function(){
   }
 
   setInterval(applySky, 30000);
+  window.addEventListener('pagehide', save);
+  window.addEventListener('beforeunload', save);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(); });
   setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})+' · '+new Date().toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});}, 10000);
 })();
 </script>
