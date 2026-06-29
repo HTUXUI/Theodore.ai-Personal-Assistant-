@@ -16,33 +16,17 @@
   .star { position: absolute; background: #fff; border-radius: 50%; animation: twinkle 4s infinite ease-in-out; }
   @keyframes twinkle { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
   .wrap { max-width: 1100px; margin: 0 auto; padding: calc(32px + env(safe-area-inset-top)) 24px calc(80px + env(safe-area-inset-bottom)); }
-  .greet { font-size: 34px; font-weight: 600; letter-spacing: -.5px; text-shadow: 0 2px 18px rgba(0,0,0,.25); }
-  .clock { font-size: 16px; opacity: .85; margin-top: 4px; text-shadow: 0 1px 10px rgba(0,0,0,.3); }
+  .greet { font-size: 34px; font-weight: 600; letter-spacing: -.5px; }
+  .clock { font-size: 16px; opacity: .85; margin-top: 4px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 14px; margin: 26px 0; }
   .stat { background: rgba(40,45,75,.32); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 18px; }
   .stat .v { font-size: 30px; font-weight: 600; }
   .stat .l { font-size: 13px; opacity: .8; margin-top: 2px; }
   .grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
-  @media (max-width: 760px) {
-    .grid { grid-template-columns: 1fr; }
-    .greet { font-size: 26px; }
-    .wrap { padding: calc(20px + env(safe-area-inset-top)) 16px calc(60px + env(safe-area-inset-bottom)); }
-    .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .stat { padding: 14px; }
-    .stat .v { font-size: 25px; }
-    .card { padding: 18px; }
-    .tdisplay { font-size: 46px; }
-    .addrow { flex-wrap: wrap; }
-    input[type=time] { flex: 1 0 100%; }
-    .week { margin-left: 0; gap: 4px; justify-content: space-between; }
-    .day { width: auto; flex: 1; }
-    .day .dot { width: 100%; max-width: 32px; }
-    .theo-orb { width: 44px; height: 44px; }
-  }
   .card { background: rgba(40,45,75,.32); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.25); border-radius: 18px; padding: 22px; }
   .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .addrow { display: flex; gap: 8px; margin-bottom: 14px; }
-  input[type=text], input[type=time] { flex: 1; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.25); border-radius: 11px; padding: 11px 13px; color: #fff; font-size: 14px; outline: none; }
+  input[type=text], input[type=time], input[type=number] { flex: 1; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.25); border-radius: 11px; padding: 11px 13px; color: #fff; font-size: 14px; outline: none; }
   input::placeholder { color: rgba(255,255,255,.6); }
   input[type=time] { flex: 0 0 110px; color-scheme: dark; }
   .btn { background: rgba(255,255,255,.28); border: 1px solid rgba(255,255,255,.3); border-radius: 11px; color: #fff; padding: 11px 15px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, transform .1s; }
@@ -58,6 +42,8 @@
   .done .txt { text-decoration: line-through; opacity: .55; }
   .del { background: none; border: none; color: rgba(255,255,255,.5); cursor: pointer; font-size: 17px; padding: 4px; line-height: 1; }
   .del:hover { color: #fff; }
+  .svgi { width: 1em; height: 1em; vertical-align: -0.125em; display: inline-block; }
+  .svgi-lg { width: 20px; height: 20px; }
   .empty { opacity: .6; font-size: 14px; padding: 14px 0; text-align: center; }
   .habit { padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.13); }
   .habit:last-child { border-bottom: none; }
@@ -77,7 +63,7 @@
   .tmode button.act { background: rgba(255,255,255,.4); }
   .sessions { font-size: 13px; opacity: .8; margin-top: 12px; }
   .theo { display: flex; align-items: flex-start; gap: 14px; }
-  .theo-orb { width: 52px; height: 52px; border-radius: 50%; flex: 0 0 auto; background: radial-gradient(circle at 35% 30%, #bfe3ff, #4a78c8 70%); box-shadow: 0 0 22px rgba(120,180,255,.5); position: relative; }
+  .theo-orb { width: 52px; height: 52px; border-radius: 50%; flex: 0 0 auto; background: radial-gradient(circle at 35% 30%, #bfe3ff, #4a78c8 70%); box-shadow: 0 0 22px rgba(120,180,255,.5); }
   .theo-orb.speaking { animation: pulse 1.1s infinite ease-in-out; }
   @keyframes pulse { 0%,100% { box-shadow: 0 0 18px rgba(120,180,255,.45); transform: scale(1); } 50% { box-shadow: 0 0 34px rgba(120,180,255,.75); transform: scale(1.06); } }
   .theo-body { flex: 1; }
@@ -93,6 +79,25 @@
   .music-row .m-sub { font-size: 12px; opacity: .65; }
   .music-row a { color: #fff; text-decoration: none; background: rgba(255,255,255,.22); border: 1px solid rgba(255,255,255,.28); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; }
   .music-row a:hover { background: rgba(255,255,255,.38); }
+  .setrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; }
+  .setrow input[type=checkbox] { width: 20px; height: 20px; flex: 0 0 auto; }
+  .setrow input[type=number] { flex: 0 0 80px; text-align: center; }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .greet { font-size: 26px; }
+    .wrap { padding: calc(20px + env(safe-area-inset-top)) 16px calc(60px + env(safe-area-inset-bottom)); }
+    .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat { padding: 14px; }
+    .stat .v { font-size: 25px; }
+    .card { padding: 18px; }
+    .tdisplay { font-size: 46px; }
+    .addrow { flex-wrap: wrap; }
+    input[type=time] { flex: 1 0 100%; }
+    .week { margin-left: 0; gap: 4px; justify-content: space-between; }
+    .day { width: auto; flex: 1; }
+    .day .dot { width: 100%; max-width: 32px; }
+    .theo-orb { width: 44px; height: 44px; }
+  }
 </style>
 
 <div id="sky"></div>
@@ -110,25 +115,23 @@
 </div>
 
 <div class="wrap">
-  <div class="greet" id="greet">Hello</div>
-  <div class="clock" id="clock"></div>
+  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+    <div>
+      <div class="greet" id="greet">Hello</div>
+      <div class="clock" id="clock"></div>
+    </div>
+    <button class="btn" id="open-settings" aria-label="Settings" style="margin-top:4px; padding:8px 12px;"><i class="ti ti-settings"></i> Settings</button>
+  </div>
 
-  <div class="card" style="margin-top:22px;">
-    <div class="theo">
-      <div class="theo-orb" id="theo-orb"></div>
-      <div class="theo-body">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div class="theo-line" id="theo-line" style="flex:1;">Good day. I'm Theodore, at your service.</div>
-          <button class="del" id="theo-toggle" aria-label="Collapse Theodore" style="font-size:20px;"><i class="ti ti-chevron-up"></i></button>
-        </div>
-        <div id="theo-collapsible">
-          <div class="theo-news" id="theo-news"></div>
-          <div class="theo-btns">
-            <button class="btn" id="theo-brief"><i class="ti ti-microphone"></i> Morning briefing</button>
-            <button class="btn" id="theo-stop"><i class="ti ti-player-stop"></i> Stop</button>
-          </div>
-        </div>
-      </div>
+  <div id="settings-panel" class="card" style="display:none; margin-top:18px;">
+    <h2><i class="ti ti-adjustments"></i> Settings</h2>
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <label class="setrow">Show focus timer <input type="checkbox" id="set-timer"></label>
+      <label class="setrow">Show focus music <input type="checkbox" id="set-music"></label>
+      <label class="setrow">Show Theodore <input type="checkbox" id="set-theo"></label>
+      <label class="setrow">Theodore greets aloud on open <input type="checkbox" id="set-greet"></label>
+      <div class="setrow">Default focus minutes <input type="number" id="set-focus" min="1" max="180"></div>
+      <div class="setrow">Accent colour <span id="accent-swatches" style="display:flex; gap:8px;"></span></div>
     </div>
   </div>
 
@@ -137,6 +140,25 @@
     <div class="stat"><div class="v" id="s-tasks">0</div><div class="l">Tasks remaining</div></div>
     <div class="stat"><div class="v" id="s-streak">0</div><div class="l">Best active streak</div></div>
     <div class="stat"><div class="v" id="s-habits">0/0</div><div class="l">Habits done today</div></div>
+  </div>
+
+  <div class="card" id="card-theo" style="margin-bottom:18px;">
+    <div class="theo">
+      <div class="theo-orb" id="theo-orb"></div>
+      <div class="theo-body">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="theo-line" id="theo-line" style="flex:1;">Good day. I'm Theodore, at your service.</div>
+          <button class="del" id="theo-toggle" aria-label="Collapse" style="font-size:20px;"><i class="ti ti-chevron-up"></i></button>
+        </div>
+        <div id="theo-collapsible">
+          <div class="theo-news" id="theo-news"></div>
+          <div class="theo-btns">
+            <button class="btn" id="theo-brief"><i class="ti ti-microphone"></i> Daily updates</button>
+            <button class="btn" id="theo-stop"><i class="ti ti-player-stop"></i> Stop</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="grid">
@@ -161,7 +183,7 @@
       </div>
     </div>
 
-    <div class="card timer">
+    <div class="card timer" id="card-timer">
       <h2 style="justify-content:center;"><i class="ti ti-clock"></i> Focus</h2>
       <div class="tmode">
         <button data-min="25" class="act">Focus 25</button>
@@ -181,43 +203,42 @@
     </div>
   </div>
 
-  <div class="card" style="margin-top:18px;">
+  <div class="card" id="card-music" style="margin-top:18px;">
     <h2><i class="ti ti-music"></i> Focus music · lo-fi &amp; chillhop</h2>
     <div id="music-list"></div>
     <div style="font-size:12px; opacity:.6; margin-top:12px;">Opens in your Spotify app, where you're already signed in.</div>
   </div>
-
 </div>
 
 <script>
+const WORKER_URL = "https://theodore-voice.htateux.workers.dev";
+const NEWS_URL = "https://theodore-current-news.htateux.workers.dev";
+const VOICE_ID = "JBFqnCBsd6RMkjVDRZzb";
 const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const todayKey = () => new Date().toISOString().slice(0,10);
+const $ = id => document.getElementById(id);
 
-let state = { tasks: [], habits: [], sessions: {}, sessionMode: 25 };
-let storeOK = true;
+let state = { tasks: [], habits: [], sessions: {}, sessionMode: 25, settings: {} };
 
-async function load() {
+function load() {
   let raw = null;
-  try { raw = localStorage.getItem('dashboard'); } catch (e) { storeOK = false; }
+  try { raw = localStorage.getItem('dashboard'); } catch (e) {}
   if (raw == null) {
-    try { raw = document.cookie.split('; ').find(c=>c.startsWith('dashboard='))?.split('=').slice(1).join('='); if (raw) raw = decodeURIComponent(raw); } catch (e) {}
+    try { const c = document.cookie.split('; ').find(x=>x.startsWith('dashboard=')); if (c) raw = decodeURIComponent(c.split('=').slice(1).join('=')); } catch (e) {}
   }
   if (raw) { try { state = JSON.parse(raw); } catch (e) {} }
   if (!state.tasks) state.tasks = [];
   if (!state.habits) state.habits = [];
   if (!state.sessions) state.sessions = {};
+  if (!state.settings) state.settings = {};
+  const sd = { showTimer:true, showMusic:true, showTheo:true, accent:'#4a78c8', autoGreet:false, defaultFocus:25 };
+  for (const k in sd) if (state.settings[k] === undefined) state.settings[k] = sd[k];
 }
 
 function save() {
   const data = JSON.stringify(state);
-  let wrote = false;
-  try { localStorage.setItem('dashboard', data); wrote = true; } catch (e) { storeOK = false; }
-  try {
-    const d = new Date(); d.setFullYear(d.getFullYear() + 1);
-    document.cookie = 'dashboard=' + encodeURIComponent(data) + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
-    wrote = true;
-  } catch (e) {}
-  return wrote;
+  try { localStorage.setItem('dashboard', data); } catch (e) {}
+  try { const d = new Date(); d.setFullYear(d.getFullYear()+1); document.cookie = 'dashboard='+encodeURIComponent(data)+'; expires='+d.toUTCString()+'; path=/; SameSite=Lax'; } catch (e) {}
 }
 
 function lerp(a,b,t){return a+(b-a)*t;}
@@ -225,16 +246,18 @@ function mix(c1,c2,t){return [lerp(c1[0],c2[0],t),lerp(c1[1],c2[1],t),lerp(c1[2]
 function rgb(c){return `rgb(${c[0]},${c[1]},${c[2]})`;}
 
 const palette = [
-  { h:0,  top:[12,16,42],   bot:[26,28,60],   body:'#cdd2ff' },
-  { h:5,  top:[40,32,70],   bot:[120,70,90],  body:'#ffe2d0' },
-  { h:7,  top:[120,140,210],bot:[255,180,140],body:'#fff' },
-  { h:9,  top:[90,160,230], bot:[180,220,250],body:'#fff' },
-  { h:13, top:[70,150,235], bot:[170,210,245],body:'#fff' },
-  { h:17, top:[80,130,210], bot:[230,200,150],body:'#fff' },
-  { h:19, top:[60,70,130],  bot:[245,150,90], body:'#fff' },
-  { h:20, top:[30,32,80],   bot:[150,80,110], body:'#ffe2d0' },
-  { h:22, top:[16,18,50],   bot:[40,36,75],   body:'#cdd2ff' },
-  { h:24, top:[12,16,42],   bot:[26,28,60],   body:'#cdd2ff' },
+  { h:0,  top:[12,16,42],   bot:[26,28,60] },
+  { h:5,  top:[40,32,70],   bot:[120,70,90] },
+  { h:7,  top:[120,140,210],bot:[255,180,140] },
+  { h:9,  top:[90,160,230], bot:[180,220,250] },
+  { h:12, top:[70,150,235], bot:[170,210,245] },
+  { h:14, top:[90,155,225], bot:[205,205,210] },
+  { h:16, top:[110,150,205], bot:[235,200,165] },
+  { h:17, top:[120,140,185], bot:[245,195,140] },
+  { h:19, top:[60,70,130],  bot:[245,150,90] },
+  { h:20, top:[30,32,80],   bot:[150,80,110] },
+  { h:22, top:[16,18,50],   bot:[40,36,75] },
+  { h:24, top:[12,16,42],   bot:[26,28,60] },
 ];
 
 function applySky() {
@@ -247,10 +270,10 @@ function applySky() {
   const t = (h - a.h) / (b.h - a.h || 1);
   const top = mix(a.top, b.top, t);
   const bot = mix(a.bot, b.bot, t);
-  document.getElementById('sky').style.background = `linear-gradient(170deg, ${rgb(top)} 0%, ${rgb(bot)} 100%)`;
+  $('sky').style.background = `linear-gradient(170deg, ${rgb(top)} 0%, ${rgb(bot)} 100%)`;
 
   const isDay = h >= 6 && h <= 20;
-  const cel = document.getElementById('celestial');
+  const cel = $('celestial');
   const frac = isDay ? (h - 6) / 14 : ((h < 6 ? h + 4 : h - 20) / 10);
   const x = frac * 100;
   const y = 18 + 55 * Math.pow(Math.abs(frac - 0.5) * 2, 1.4);
@@ -263,17 +286,21 @@ function applySky() {
     cel.style.background = 'radial-gradient(circle at 35% 35%, #fff, #d8dcf0)';
     cel.style.boxShadow = '0 0 40px 12px rgba(220,225,255,.4)';
   }
-  document.getElementById('stars').style.opacity = (h < 5.5 || h > 20.5) ? 1 : (h < 6.5 || h > 19.5 ? 0.4 : 0);
+  $('stars').style.opacity = (h < 5.5 || h > 20.5) ? 1 : (h < 6.5 || h > 19.5 ? 0.4 : 0);
 
   let g = 'Hello';
   if (h < 5) g = 'Good night'; else if (h < 12) g = 'Good morning';
   else if (h < 17) g = 'Good afternoon'; else if (h < 21) g = 'Good evening'; else g = 'Good night';
-  document.getElementById('greet').textContent = g;
-  document.getElementById('clock').textContent = now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}) + ' · ' + now.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+  $('greet').textContent = state.name ? g + ', ' + state.name : g;
+  updClock();
+}
+
+function updClock(){
+  $('clock').textContent = new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}) + ' · ' + new Date().toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
 }
 
 function makeStars() {
-  const s = document.getElementById('stars');
+  const s = $('stars');
   for (let i=0;i<70;i++){
     const d = document.createElement('div');
     d.className='star';
@@ -287,9 +314,34 @@ function makeStars() {
 }
 
 function uid(){return Math.random().toString(36).slice(2,9);}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+const ICONS = {
+  'ti-settings': '<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/>',
+  'ti-adjustments': '<circle cx="6" cy="10" r="2"/><line x1="6" y1="4" x2="6" y2="8"/><line x1="6" y1="12" x2="6" y2="20"/><circle cx="12" cy="16" r="2"/><line x1="12" y1="4" x2="12" y2="14"/><line x1="12" y1="18" x2="12" y2="20"/><circle cx="18" cy="7" r="2"/><line x1="18" y1="4" x2="18" y2="5"/><line x1="18" y1="9" x2="18" y2="20"/>',
+  'ti-checklist': '<path d="M9.615 20h-2.615a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6.5"/><path d="M14 19l2 2l4-4"/><line x1="9" y1="8" x2="13" y2="8"/><line x1="9" y1="12" x2="11" y2="12"/>',
+  'ti-flame': '<path d="M12 12c2-2.96 0-7-1-8c0 3.038-1.773 4.741-3 6c-1.226 1.26-2 3.24-2 5a6 6 0 1 0 12 0c0-1.532-1.056-3.94-2-5c-1.786 3-2.791 3-4 2z"/>',
+  'ti-clock': '<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/>',
+  'ti-music': '<circle cx="6" cy="17" r="3"/><circle cx="16" cy="15" r="3"/><polyline points="9 17 9 4 19 2 19 15"/>',
+  'ti-microphone': '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+  'ti-player-stop': '<rect x="5" y="5" width="14" height="14" rx="2"/>',
+  'ti-chevron-up': '<polyline points="6 15 12 9 18 15"/>',
+  'ti-chevron-down': '<polyline points="6 9 12 15 18 9"/>',
+  'ti-check': '<polyline points="5 12 10 17 19 8"/>',
+  'ti-headphones': '<path d="M4 14v-3a8 8 0 0 1 16 0v3"/><path d="M18 19a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-1v6z"/><path d="M6 19a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h1v6z"/>'
+};
+function svg(name, cls){
+  return `<svg class="svgi ${cls||''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]||''}</svg>`;
+}
+function renderIcons(){
+  document.querySelectorAll('i.ti').forEach(el => {
+    const name = [...el.classList].find(c => c.startsWith('ti-'));
+    if (name && ICONS[name]) { el.outerHTML = svg(name); }
+  });
+}
 
 function renderTasks() {
-  const list = document.getElementById('task-list');
+  const list = $('task-list');
   const tk = todayKey();
   state.tasks = state.tasks.filter(t => t.day === tk);
   if (!state.tasks.length) { list.innerHTML = '<li class="empty">No tasks yet — add one above.</li>'; }
@@ -297,7 +349,7 @@ function renderTasks() {
     state.tasks.sort((a,b)=> (a.done-b.done) || ((a.time||'99')>(b.time||'99')?1:-1));
     list.innerHTML = state.tasks.map(t => `
       <li class="item ${t.done?'done':''}">
-        <div class="check ${t.done?'on':''}" data-id="${t.id}">${t.done?'<i class="ti ti-check"></i>':''}</div>
+        <div class="check ${t.done?'on':''}" data-id="${t.id}">${t.done?svg('ti-check'):''}</div>
         <div class="txt">${esc(t.text)}</div>
         ${t.time?`<span class="time">${t.time}</span>`:''}
         <button class="del" data-del="${t.id}">&times;</button>
@@ -307,8 +359,15 @@ function renderTasks() {
   document.querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{state.tasks=state.tasks.filter(x=>x.id!==el.dataset.del);save();renderAll();});
 }
 
+function streak(hb){
+  if(!hb.log)return 0; let s=0; const d=new Date();
+  if(!hb.log[d.toISOString().slice(0,10)]) d.setDate(d.getDate()-1);
+  while(hb.log[d.toISOString().slice(0,10)]){s++;d.setDate(d.getDate()-1);}
+  return s;
+}
+
 function renderHabits() {
-  const list = document.getElementById('habit-list');
+  const list = $('habit-list');
   if (!state.habits.length) { list.innerHTML = '<div class="empty">No habits yet — add a daily habit above.</div>'; return; }
   const today = new Date();
   list.innerHTML = state.habits.map(hb => {
@@ -317,11 +376,11 @@ function renderHabits() {
       const d = new Date(today); d.setDate(today.getDate()-i);
       const k = d.toISOString().slice(0,10);
       const on = hb.log && hb.log[k];
-      days.push(`<div class="day"><div class="lbl">${DAYS[d.getDay()]}</div><div class="dot ${on?'on':''} ${i===0?'today':''}" data-h="${hb.id}" data-k="${k}">${on?'<i class="ti ti-check"></i>':''}</div></div>`);
+      days.push(`<div class="day"><div class="lbl">${DAYS[d.getDay()]}</div><div class="dot ${on?'on':''} ${i===0?'today':''}" data-h="${hb.id}" data-k="${k}">${on?svg('ti-check'):''}</div></div>`);
     }
     return `<div class="habit">
       <div class="habit-top">
-        <i class="ti ti-flame" style="opacity:.8"></i>
+        ${svg('ti-flame')}
         <div class="txt" style="flex:1; font-size:15px;">${esc(hb.name)}</div>
         <span class="streak">${streak(hb)} day streak</span>
         <button class="del" data-delh="${hb.id}">&times;</button>
@@ -336,13 +395,6 @@ function renderHabits() {
   document.querySelectorAll('[data-delh]').forEach(el=>el.onclick=()=>{state.habits=state.habits.filter(x=>x.id!==el.dataset.delh);save();renderAll();});
 }
 
-function streak(hb){
-  if(!hb.log)return 0; let s=0; const d=new Date();
-  if(!hb.log[d.toISOString().slice(0,10)]) d.setDate(d.getDate()-1);
-  while(hb.log[d.toISOString().slice(0,10)]){s++;d.setDate(d.getDate()-1);}
-  return s;
-}
-
 function renderStats(){
   const tk=todayKey();
   const tdy=state.tasks.filter(t=>t.day===tk);
@@ -350,61 +402,93 @@ function renderStats(){
   const pct=tdy.length?Math.round(done/tdy.length*100):0;
   const hdone=state.habits.filter(h=>h.log&&h.log[tk]).length;
   const best=state.habits.reduce((m,h)=>Math.max(m,streak(h)),0);
-  document.getElementById('s-done').textContent=pct+'%';
-  document.getElementById('s-tasks').textContent=tdy.length-done;
-  document.getElementById('s-streak').textContent=best;
-  document.getElementById('s-habits').textContent=hdone+'/'+state.habits.length;
+  $('s-done').textContent=pct+'%';
+  $('s-tasks').textContent=tdy.length-done;
+  $('s-streak').textContent=best;
+  $('s-habits').textContent=hdone+'/'+state.habits.length;
 }
 
 function renderAll(){renderTasks();renderHabits();renderStats();}
-function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
-document.getElementById('task-add').onclick=()=>{
-  const i=document.getElementById('task-in'),tm=document.getElementById('task-time');
+$('task-add').onclick=()=>{
+  const i=$('task-in'),tm=$('task-time');
   if(!i.value.trim())return;
   state.tasks.push({id:uid(),text:i.value.trim(),time:tm.value,done:false,day:todayKey()});
   i.value='';tm.value='';save();renderAll();
 };
-document.getElementById('task-in').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('task-add').click();});
-document.getElementById('habit-add').onclick=()=>{
-  const i=document.getElementById('habit-in');
+$('task-in').addEventListener('keydown',e=>{if(e.key==='Enter')$('task-add').click();});
+$('habit-add').onclick=()=>{
+  const i=$('habit-in');
   if(!i.value.trim())return;
   state.habits.push({id:uid(),name:i.value.trim(),log:{}});
   i.value='';save();renderAll();
 };
-document.getElementById('habit-in').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('habit-add').click();});
+$('habit-in').addEventListener('keydown',e=>{if(e.key==='Enter')$('habit-add').click();});
 
 let tLeft=25*60, tRun=false, tInt=null, tTotal=25*60;
 function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
-function tRender(){document.getElementById('t-disp').textContent=fmt(tLeft);}
+function tRender(){$('t-disp').textContent=fmt(tLeft);}
+function chime(){
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f; o.connect(g); g.connect(ctx.destination);
+      const t = ctx.currentTime + i * 0.16;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.3, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+      o.start(t); o.stop(t + 0.95);
+    });
+  } catch (e) {}
+}
 function tTick(){
   tLeft--; tRender();
   if(tLeft<=0){
-    clearInterval(tInt);tRun=false;document.getElementById('t-toggle').textContent='Start';
+    clearInterval(tInt);tRun=false;$('t-toggle').textContent='Start';
+    chime();
     if(state.sessionMode>=15){const k=todayKey();state.sessions[k]=(state.sessions[k]||0)+1;save();updSess();}
     tLeft=tTotal;tRender();
   }
 }
-document.getElementById('t-toggle').onclick=function(){
+$('t-toggle').onclick=function(){
   tRun=!tRun;this.textContent=tRun?'Pause':'Start';
   if(tRun)tInt=setInterval(tTick,1000);else clearInterval(tInt);
 };
-document.getElementById('t-reset').onclick=()=>{clearInterval(tInt);tRun=false;tLeft=tTotal;tRender();document.getElementById('t-toggle').textContent='Start';};
+$('t-reset').onclick=()=>{clearInterval(tInt);tRun=false;tLeft=tTotal;tRender();$('t-toggle').textContent='Start';};
 document.querySelectorAll('.tmode button').forEach(b=>b.onclick=function(){
   document.querySelectorAll('.tmode button').forEach(x=>x.classList.remove('act'));
   this.classList.add('act');
-  clearInterval(tInt);tRun=false;document.getElementById('t-toggle').textContent='Start';
+  clearInterval(tInt);tRun=false;$('t-toggle').textContent='Start';
   state.sessionMode=+this.dataset.min;tTotal=tLeft=+this.dataset.min*60;tRender();
 });
-document.getElementById('t-custom-set').onclick=function(){
-  let m=parseInt(document.getElementById('t-custom').value,10);
+$('t-custom-set').onclick=function(){
+  let m=parseInt($('t-custom').value,10);
   if(!m||m<1)return; if(m>180)m=180;
   document.querySelectorAll('.tmode button').forEach(x=>x.classList.remove('act'));
-  clearInterval(tInt);tRun=false;document.getElementById('t-toggle').textContent='Start';
+  clearInterval(tInt);tRun=false;$('t-toggle').textContent='Start';
   state.sessionMode=m;tTotal=tLeft=m*60;tRender();
 };
-document.getElementById('t-custom').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('t-custom-set').click();});
-function updSess(){document.getElementById('t-sessions').textContent='Sessions today: '+(state.sessions[todayKey()]||0);}
+$('t-custom').addEventListener('keydown',e=>{if(e.key==='Enter')$('t-custom-set').click();});
+function updSess(){$('t-sessions').textContent='Sessions today: '+(state.sessions[todayKey()]||0);}
+
+const MUSIC = [
+  { name: "lofi hip hop radio – beats to relax/study to", sub: "The classic endless focus stream", web: "https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM" },
+  { name: "Lofi Beats", sub: "Spotify's flagship lo-fi playlist", web: "https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn" },
+  { name: "Chillhop Essentials", sub: "Jazzy, mellow chillhop for deep work", web: "https://open.spotify.com/playlist/6kHsFRYcCxlubVNqYAdHcA" },
+  { name: "Deep Focus", sub: "Ambient lo-fi to keep distractions out", web: "https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ" }
+];
+function renderMusic(){
+  $('music-list').innerHTML = MUSIC.map(m => `
+    <div class="music-row">
+      <div class="music-ic">${svg('ti-headphones')}</div>
+      <div style="flex:1;">
+        <div class="m-name">${esc(m.name)}</div>
+        <div class="m-sub">${esc(m.sub)}</div>
+      </div>
+      <a href="${m.web}" target="_blank" rel="noopener">Open</a>
+    </div>`).join('');
+}
 
 const NEWS = [
   "Firefighters in southern Utah are battling the nation's largest current wildfire, with forecasters issuing a rare and severe red flag warning as extreme conditions persist through the weekend.",
@@ -415,35 +499,12 @@ const NEWS = [
   "On the markets, stock futures rose alongside oil prices as traders weighed the latest US strikes on Iran over the weekend."
 ];
 
-const MUSIC = [
-  { name: "lofi hip hop radio – beats to relax/study to", sub: "The classic endless focus stream", uri: "spotify:playlist:0vvXsWCC9xrXsKd4FyS8kM", web: "https://open.spotify.com/playlist/0vvXsWCC9xrXsKd4FyS8kM" },
-  { name: "Lofi Beats", sub: "Spotify's flagship lo-fi playlist", uri: "spotify:playlist:37i9dQZF1DWWQRwui0ExPn", web: "https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn" },
-  { name: "Chillhop Essentials", sub: "Jazzy, mellow chillhop for deep work", uri: "spotify:playlist:6kHsFRYcCxlubVNqYAdHcA", web: "https://open.spotify.com/playlist/6kHsFRYcCxlubVNqYAdHcA" },
-  { name: "Deep Focus", sub: "Ambient lo-fi to keep distractions out", uri: "spotify:playlist:37i9dQZF1DWZeKCadgRdKQ", web: "https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ" }
-];
-
-function renderMusic(){
-  document.getElementById('music-list').innerHTML = MUSIC.map(m => `
-    <div class="music-row">
-      <div class="music-ic"><i class="ti ti-headphones"></i></div>
-      <div style="flex:1;">
-        <div class="m-name">${esc(m.name)}</div>
-        <div class="m-sub">${esc(m.sub)}</div>
-      </div>
-      <a href="${m.web}" target="_blank" rel="noopener">Open</a>
-    </div>`).join('');
-}
-
-const WORKER_URL = "https://theodore-voice.htateux.workers.dev";
-const VOICE_ID = "JBFqnCBsd6RMkjVDRZzb";
-
 let theoVoice = null;
 function pickVoice(){
   const vs = speechSynthesis.getVoices();
   if (!vs.length) return;
   const score = v => {
-    let s = 0;
-    const n = v.name.toLowerCase();
+    let s = 0; const n = v.name.toLowerCase();
     if (/en-gb/i.test(v.lang)) s += 40; else if (/^en/i.test(v.lang)) s += 10;
     if (/natural|neural|premium|enhanced|online/.test(n)) s += 50;
     if (/google/.test(n)) s += 30;
@@ -459,39 +520,31 @@ if ('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = pickVoice; p
 
 let theoAudio = null;
 async function speak(text){
-  const orb = document.getElementById('theo-orb');
+  const orb = $('theo-orb');
   if (WORKER_URL) {
     try {
       orb.classList.add('speaking');
-      const res = await fetch(WORKER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, voice_id: VOICE_ID || undefined })
-      });
+      const res = await fetch(WORKER_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ text, voice_id: VOICE_ID || undefined }) });
       if (!res.ok) throw new Error('worker ' + res.status);
       const blob = await res.blob();
-      if (theoAudio) { theoAudio.pause(); }
+      if (theoAudio) theoAudio.pause();
       theoAudio = new Audio(URL.createObjectURL(blob));
       theoAudio.onended = () => orb.classList.remove('speaking');
       await theoAudio.play();
       return;
-    } catch (e) {
-      orb.classList.remove('speaking');
-    }
+    } catch (e) { orb.classList.remove('speaking'); }
   }
-  const parts = text.match(/[^.!?]+[.!?]+|\S+$/g) || [text];
-  speakChunks(parts);
+  speakBrowser(text);
 }
-
-function speakChunks(sentences){
+function speakBrowser(text){
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
-  const orb = document.getElementById('theo-orb');
-  orb.classList.add('speaking');
+  const orb = $('theo-orb'); orb.classList.add('speaking');
+  const parts = text.match(/[^.!?]+[.!?]+|\S+$/g) || [text];
   let i = 0;
   const next = () => {
-    if (i >= sentences.length){ orb.classList.remove('speaking'); return; }
-    const u = new SpeechSynthesisUtterance(sentences[i].trim());
+    if (i >= parts.length){ orb.classList.remove('speaking'); return; }
+    const u = new SpeechSynthesisUtterance(parts[i].trim());
     if (theoVoice) u.voice = theoVoice;
     u.rate = 0.97 + (Math.random()*0.05 - 0.025);
     u.pitch = 0.9 + (Math.random()*0.06 - 0.03);
@@ -503,76 +556,126 @@ function speakChunks(sentences){
 }
 
 function addr(){ return state.name ? state.name : 'sir'; }
-
 function theoGreeting(){
-  const h = new Date().getHours();
-  const n = addr();
+  const h = new Date().getHours(); const n = addr();
   if (h < 12) return `Good morning, ${n}. Theodore here. I trust you slept well. Allow me to bring you up to speed on the world.`;
   if (h < 17) return `Good afternoon, ${n}. Theodore at your service. Here is where matters stand in the world.`;
   if (h < 21) return `Good evening, ${n}. Theodore here. Permit me to summarise the day's affairs.`;
   return `A late evening to you, ${n}. Theodore here. The headlines, should you wish them, are as follows.`;
 }
-
-function buildBriefing(){
-  const picks = NEWS.slice().sort(()=>Math.random()-0.5).slice(0,3);
-  document.getElementById('theo-line').textContent = theoGreeting();
-  document.getElementById('theo-news').innerHTML = picks.map(n=>`<div>${esc(n)}</div>`).join('');
-  return theoGreeting() + " " + picks.join(" ") + ` That concludes the briefing, ${addr()}. I shall be here should you need anything further.`;
+async function fetchNews(){
+  try {
+    const res = await fetch(NEWS_URL);
+    if (!res.ok) throw new Error('news ' + res.status);
+    const data = await res.json();
+    if (data.items && data.items.length) {
+      return data.items.map(i => i.description && i.description.length > 20 ? `${i.title}. ${i.description}` : i.title);
+    }
+  } catch (e) {}
+  return null;
 }
 
-document.getElementById('theo-brief').onclick = () => { speak(buildBriefing()); };
-document.getElementById('theo-stop').onclick = () => { if (theoAudio) theoAudio.pause(); speechSynthesis.cancel(); setTimeout(()=>document.getElementById('theo-orb').classList.remove('speaking'), 50); };
-document.getElementById('theo-toggle').onclick = function(){
-  const c = document.getElementById('theo-collapsible');
+async function buildBriefing(){
+  $('theo-line').textContent = theoGreeting();
+  $('theo-news').innerHTML = '<div style="opacity:.6">Fetching the latest headlines…</div>';
+  const live = await fetchNews();
+  const source = live || NEWS;
+  const picks = live ? source.slice(0, 4) : source.slice().sort(()=>Math.random()-0.5).slice(0,3);
+  $('theo-news').innerHTML = picks.map(n=>`<div>${esc(n)}</div>`).join('');
+  return theoGreeting() + " " + picks.join(" ") + ` That concludes the briefing, ${addr()}. I shall be here should you need anything further.`;
+}
+$('theo-brief').onclick = async () => { speak(await buildBriefing()); };
+$('theo-stop').onclick = () => { if (theoAudio) theoAudio.pause(); if ('speechSynthesis' in window) speechSynthesis.cancel(); setTimeout(()=>$('theo-orb').classList.remove('speaking'),50); };
+$('theo-toggle').onclick = function(){
+  const c = $('theo-collapsible');
   const open = c.style.display !== 'none';
   c.style.display = open ? 'none' : '';
-  this.innerHTML = open ? '<i class="ti ti-chevron-down"></i>' : '<i class="ti ti-chevron-up"></i>';
+  this.innerHTML = open ? svg('ti-chevron-down') : svg('ti-chevron-up');
   state.theoCollapsed = open; save();
 };
 
+function applySettings(){
+  const s = state.settings;
+  $('card-timer').style.display = s.showTimer ? '' : 'none';
+  $('card-music').style.display = s.showMusic ? '' : 'none';
+  $('card-theo').style.display = s.showTheo ? '' : 'none';
+  const n = parseInt(s.accent.slice(1),16), r=n>>16&255, g=n>>8&255, b=n&255;
+  document.querySelectorAll('.card, .stat').forEach(el => {
+    el.style.background = `rgba(${Math.round(r*0.5)},${Math.round(g*0.5)},${Math.round(b*0.5)},.34)`;
+  });
+}
+const ACCENTS = ['#4a78c8','#2e8b6f','#b5673a','#8a5cb8','#3a6db5','#a8456b'];
+function buildSwatches(){
+  $('accent-swatches').innerHTML = ACCENTS.map(c =>
+    `<button data-acc="${c}" style="width:24px;height:24px;border-radius:50%;border:2px solid ${c===state.settings.accent?'#fff':'rgba(255,255,255,.4)'};background:${c};cursor:pointer;padding:0;"></button>`).join('');
+  document.querySelectorAll('[data-acc]').forEach(b => b.onclick = () => { state.settings.accent = b.dataset.acc; save(); applySettings(); buildSwatches(); });
+}
+function wireSettings(){
+  const s = state.settings;
+  $('set-timer').checked = s.showTimer; $('set-music').checked = s.showMusic; $('set-theo').checked = s.showTheo;
+  $('set-greet').checked = s.autoGreet; $('set-focus').value = s.defaultFocus;
+  const bind = (id,key,val) => $(id).addEventListener('change', e => { s[key]=val(e.target); save(); applySettings(); });
+  bind('set-timer','showTimer', e=>e.checked);
+  bind('set-music','showMusic', e=>e.checked);
+  bind('set-theo','showTheo', e=>e.checked);
+  bind('set-greet','autoGreet', e=>e.checked);
+  bind('set-focus','defaultFocus', e=>{let v=parseInt(e.target.value,10)||25; return Math.min(180,Math.max(1,v));});
+  buildSwatches();
+  $('open-settings').onclick = () => { const p=$('settings-panel'); p.style.display = p.style.display==='none'?'':'none'; };
+}
 
-(async function(){
-  await load();
+function init(){
+  load();
+  renderIcons();
   makeStars();
   applySky();
   renderAll();
   renderMusic();
   updSess();
-  if (state.theoCollapsed) {
-    document.getElementById('theo-collapsible').style.display = 'none';
-    document.getElementById('theo-toggle').innerHTML = '<i class="ti ti-chevron-down"></i>';
+  wireSettings();
+  applySettings();
+
+  if (state.settings.defaultFocus && state.settings.defaultFocus !== 25) {
+    document.querySelectorAll('.tmode button').forEach(x=>x.classList.remove('act'));
+    state.sessionMode = state.settings.defaultFocus;
+    tTotal = tLeft = state.settings.defaultFocus * 60;
   }
   tRender();
 
+  if (state.theoCollapsed) {
+    $('theo-collapsible').style.display = 'none';
+    $('theo-toggle').innerHTML = svg('ti-chevron-down');
+  }
+
   if (!state.name) {
-    document.getElementById('welcome').style.display = 'flex';
+    $('welcome').style.display = 'flex';
     const finish = () => {
-      const v = document.getElementById('name-in').value.trim();
-      state.name = v || '';
-      save();
-      document.getElementById('welcome').style.display = 'none';
-      document.getElementById('theo-line').textContent = theoGreeting();
+      const v = $('name-in').value.trim();
+      state.name = v || ''; save();
+      $('welcome').style.display = 'none';
+      applySky();
       const greet = v
         ? `A genuine pleasure, ${v}. I'm Theodore, and I shall be at your service from this moment on. Do let me know whenever you'd like the morning briefing.`
         : theoGreeting();
+      $('theo-line').textContent = theoGreeting();
       speak(greet);
     };
-    document.getElementById('name-go').onclick = finish;
-    document.getElementById('name-in').addEventListener('keydown', e => { if (e.key === 'Enter') finish(); });
-    setTimeout(() => document.getElementById('name-in').focus(), 300);
+    $('name-go').onclick = finish;
+    $('name-in').addEventListener('keydown', e => { if (e.key === 'Enter') finish(); });
+    setTimeout(() => $('name-in').focus(), 300);
   } else {
-    const h = new Date().getHours();
-    document.getElementById('theo-line').textContent = theoGreeting();
-    if (h < 12 && state.lastBrief !== todayKey()) {
-      document.getElementById('theo-line').textContent = theoGreeting() + " Tap \u201cMorning briefing\u201d for today's headlines.";
-      state.lastBrief = todayKey(); save();
+    $('theo-line').textContent = theoGreeting();
+    if (state.settings.autoGreet) {
+      const once = () => { speak(theoGreeting()); document.removeEventListener('click', once); };
+      document.addEventListener('click', once, { once: true });
     }
   }
 
   setInterval(applySky, 30000);
+  setInterval(updClock, 10000);
   window.addEventListener('pagehide', save);
-  window.addEventListener('beforeunload', save);
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(); });
-  setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})+' · '+new Date().toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});}, 10000);
-})();
+}
+
+init();
 </script>
