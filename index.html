@@ -28,7 +28,7 @@
   .addrow { display: flex; gap: 8px; margin-bottom: 14px; }
   input[type=text], input[type=time], input[type=number] { flex: 1; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.25); border-radius: 11px; padding: 11px 13px; color: #fff; font-size: 14px; outline: none; }
   input::placeholder { color: rgba(255,255,255,.6); }
-  input[type=time] { flex: 0 0 110px; color-scheme: dark; }
+  input[type=time] { flex: 0 0 90px; color-scheme: dark; min-width: 0; }
   .btn { background: rgba(255,255,255,.28); border: 1px solid rgba(255,255,255,.3); border-radius: 11px; color: #fff; padding: 11px 15px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, transform .1s; }
   .btn:hover { background: rgba(255,255,255,.42); }
   .btn:active { transform: scale(.96); }
@@ -92,7 +92,9 @@
     .card { padding: 18px; }
     .tdisplay { font-size: 46px; }
     .addrow { flex-wrap: wrap; }
-    input[type=time] { flex: 1 0 100%; }
+    .addrow input[type=text] { flex: 1 1 100%; }
+    input[type=time] { flex: 0 0 auto; width: 110px; }
+    #task-add { flex: 0 0 auto; }
     .week { margin-left: 0; gap: 4px; justify-content: space-between; }
     .day { width: auto; flex: 1; }
     .day .dot { width: 100%; max-width: 32px; }
